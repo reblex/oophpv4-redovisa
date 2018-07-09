@@ -15,10 +15,6 @@ body {
     min-height: 100%;
 }
 
-
-
-
-
 /**
  * Navbar
  */
@@ -30,17 +26,17 @@ body {
     line-height: 20px;
 }
 
-navbar {
+.navbar {
     height: 80px;
     line-height: 80px;
 }
 
-navbar a {
+.navbar a {
     color: #595a5d;
     text-decoration: none;
 }
 
-navbar a:hover {
+.navbar a:hover {
     color: #252526;
 }
 
