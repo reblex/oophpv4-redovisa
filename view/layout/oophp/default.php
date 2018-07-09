@@ -27,18 +27,6 @@ namespace Anax\View;
 </head>
 <body>
 
-<!-- header -->
-<?php if (regionHasContent("header")) : ?>
-<div class="outer-wrap outer-wrap-header">
-    <div class="inner-wrap inner-wrap-header">
-        <div class="row">
-            <div class="wrap-header">
-                <?php renderRegion("header") ?>
-            </div>
-        </div>
-    </div>
-</div>
-<?php endif; ?>
 
 <!-- navbar -->
 <?php if (regionHasContent("navbar")) : ?>
