@@ -1,6 +1,6 @@
 <?php
 
-namespace reblex\Guess;
+namespace reblex\Session;
 
 /**
  * A class for creating and handling sessions.
@@ -58,5 +58,12 @@ class Session
             unset($_SESSION[$key]);
         }
         return is_null($val) ? null : $val;
+    }
+
+    public function delete($key)
+    {
+        if (self::has($key)) {
+            unset($_SESSION[$key]);
+        }
     }
 }

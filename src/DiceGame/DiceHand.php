@@ -1,0 +1,56 @@
+<?php
+
+namespace reblex\DiceGame;
+
+class DiceHand
+{
+    private $dices;
+
+    /**
+     * Constructor to create a Dice Hand.
+     *
+     * @param int    $dices  The number of dices.
+     * @param int    $faces  The number of faces for the dices.
+     */
+    public function __construct(int $dices = 3, int $faces = 6)
+    {
+        if (!(is_int($faces) && $faces >= 0)) {
+            throw new Exception("Unallowed faces value.");
+        }
+
+        if (!(is_int($dices) && $dices >= 0)) {
+            throw new Exception("Unallowed dices value.");
+        }
+
+        $this->dices = [];
+        for ($i=0; $i < $dices; $i++) {
+            array_push($this->dices, new Dice($faces));
+        }
+    }
+
+    /**
+     * Roll all dices
+     * @return array outcome of all dices
+     */
+    public function roll()
+    {
+        foreach ($this->dices as $dice) {
+            $dice->roll();
+        }
+        return $this->getOutCome();
+    }
+
+
+    /**
+     * Get the outcome of the last roll
+     * @return array outcome of all dices
+     */
+    public function getOutcome()
+    {
+        $outcome = [];
+        foreach ($this->dices as $dice) {
+            array_push($outcome, $dice->getOutcome());
+        }
+        return $outcome;
+    }
+}

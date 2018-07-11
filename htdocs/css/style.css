@@ -57,6 +57,50 @@ body {
 }
 
 
+/**
+ * Dicegame
+ */
+.dicegame {
+    width: 80%;
+    margin: auto;
+}
+
+.dicegameStatus {
+    width: 49%;
+    float: left;
+}
+
+.dicegameHistory {
+    width: 49%;
+    float: left;
+    height: 360px;
+    border-left: 1px solid black;
+    padding-left: 10px;
+}
+
+.dicegameHistory .history {
+    height: 260px;
+    overflow: scroll;
+}
+
+.dicegameOptions {
+    width: 100%;
+    min-height: 80px;
+    line-height: 80px;
+}
+
+.diceButtonLink {
+    text-decoration: none;
+}
+
+.diceButton {
+    width: 100px;
+    height: 40px;
+}
+
+.diceButtonRestart {
+    margin-left: 30px;
+}
 
 /**
  * Footer
