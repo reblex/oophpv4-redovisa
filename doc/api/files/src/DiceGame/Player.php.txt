@@ -1,0 +1,68 @@
+<?php
+namespace reblex\DiceGame;
+
+class Player
+{
+    private $diceHand;
+    private $rolls;
+    private $score;
+
+    public function __construct($numDices)
+    {
+        $this->diceHand = new DiceHand($numDices, 6);
+        $this->rolls = [];
+        $this->score = 0;
+    }
+
+    /**
+     * Roll all dices in dicehand
+     * @return array The roll
+     */
+    public function roll()
+    {
+        $roll = $this->diceHand->roll();
+        array_push($this->rolls, $roll);
+        return $roll;
+    }
+
+    /**
+     * Sum current rolls and add to score.
+     * Then clear the rolls.
+     */
+    public function sum()
+    {
+        $this->score += $this->getRollSum();
+        $this->clearRolls();
+    }
+
+    /**
+     * Reset all rolls
+     */
+    public function clearRolls()
+    {
+        $this->rolls = [];
+    }
+
+    /**
+     * Return score sum of current rounds rolls.
+     * @return int Current roll total
+     */
+    public function getRollSum()
+    {
+        $rollSum = 0;
+        foreach ($this->rolls as $roll) {
+            $rollSum += array_sum($roll);
+        }
+        return $rollSum;
+    }
+
+    /**
+     * Get the sum of all current rolls and the current score.
+     * @return int Total score
+     */
+    public function getTotal()
+    {
+        return $this->getRollSum() + $this->score;
+    }
+}
+

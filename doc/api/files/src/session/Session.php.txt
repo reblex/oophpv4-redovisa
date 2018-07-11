@@ -1,0 +1,70 @@
+<?php
+
+namespace reblex\Session;
+
+/**
+ * A class for creating and handling sessions.
+ */
+class Session
+{
+    /**
+     * Variables
+     */
+    private $name;
+
+
+
+    /**
+     * Constructor
+     * @param String $name Name of session.
+     */
+    public function __construct($name)
+    {
+        $this->setName($name);
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function start()
+    {
+        session_name($this->name);
+        session_start();
+    }
+
+    public function has($key)
+    {
+        return array_key_exists($key, $_SESSION);
+    }
+
+
+    public function get($key)
+    {
+        return (self::has($key)) ? $_SESSION[$key] : null;
+    }
+
+    public function set($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
+    public function getOnce($key)
+    {
+        $val = null;
+        if (self::has($key)) {
+            $val = $_SESSION[$key];
+            unset($_SESSION[$key]);
+        }
+        return is_null($val) ? null : $val;
+    }
+
+    public function delete($key)
+    {
+        if (self::has($key)) {
+            unset($_SESSION[$key]);
+        }
+    }
+}
+

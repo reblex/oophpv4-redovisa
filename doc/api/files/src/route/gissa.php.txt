@@ -78,7 +78,7 @@ $app->router->any(["GET", "POST"], "gissa/post", function () use ($app) {
  * Guess my number with SESSION
  */
 $app->router->any(["GET", "POST"], "gissa/session", function () use ($app) {
-    $session = new reblex\Guess\Session("index_session");
+    $session = new reblex\Session\Session("index_session");
     $session->start();
 
     if (isset($_GET["reset"])) {
