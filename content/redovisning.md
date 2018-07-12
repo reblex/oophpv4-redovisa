@@ -117,8 +117,41 @@ att göra så för tydlighetens skull, även fast jag inte gjorde det i detta ku
 Kmom04
 -------------------------
 
-Här är redovisningstexten
+**Vilka är dina tankar och funderingar kring trait och interface?**
 
+Interface kan vara smidigt för att förtydliga vad som behöver implementeras för
+att något ska klassas som något speciellt. Trait tycker jag kan bli lite svårtydigt.
+Om man implementerar en interface tycker jag att man ska implementera funktionerna
+som krävs direkt i klassen. När man har det i en trait så måste man helt plötsligt
+gå in i ännu en till fil. Har man flera traits blir det svårt, enligt mig, att se
+exakt vad klassen har tillgång till.
+
+**Hur gick det att skapa intelligensen och taktiken till tärningsspelet, hur gjorde du?**
+
+Jag avnänder slumpad procentuell chans för AIn att forsätta spela. Sedan har jag olika states
+som antingen ger högre eller lägra chans för AIn att ta beslutet att fortsätta spela.
+Det är lite olika saker som poängskillnad, mängd slag denna rundan och hur nära man är
+100 poäng som påverkar bland annat.
+
+**Några reflektioner från att integrera hårdare in i ramverkets klasser och struktur?**
+
+Tycker främst att det är bra att använda så lite konstanter som möjligt. Utöver det
+tyckte jag att request-modulen var lite för simpel. Tycker att det borde finns en has()
+funktion exempelvis för att se om ett värde är satt, så som i Session-klassen.
+
+På tal om Session så hade jag en egen klass för det som jag fick med mig från v3
+av kursen och jag använde den istället för Anax/Session.
+
+**Berätta hur väl du lyckades med make test inuti ramverket och hur väl du lyckades att testa din kod med enhetstester och vilken kodtäckning du fick.**
+
+Jag fick uppåt 50% kodtäckning totalt. Det är ganska tråkigt att skriva tester, speciellt
+när funktionaliteten redan är implementerad. Därför gjorde jag bara typ 10 tester totalt.
+Det är lite annorlunda när man jobbar med ett större projekt som har lite mer tyngd.
+Här ville jag bara visa att jag kunde.
+
+**Vilken är din TIL för detta kmom?**
+
+Jag lärde mig mer i detalj om Trait.
 
 
 Kmom05
