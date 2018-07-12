@@ -7,14 +7,18 @@ $game = $data["dicegame"];
 $rollUrl = $app->url->create("dice/roll");
 $stopUrl = $app->url->create("dice/stop");
 $restartUrl = $app->url->create("dice/new");
-$currentPlayer = $game->getCurrentPlayer();
+$currentPlayerName = $game->getPlayerName();
+$playerHistogram = $game->getHistogram(0);
+$aiHistogram = $game->getHistogram(1);
 $disabled = $game->getGameOver() ? "disabled" : "";
+$playerName = $game->getPlayerName(0);
+$aiName = $game->getPlayerName(1);
 ?>
 
 <div class="dicegame">
     <div class="dicegameStatus">
         <h2>Current Game Status</h2>
-        <b>Current Player: <?= $currentPlayer ?></b>
+        <b>Current Player: <?= $currentPlayerName ?></b>
         <br><br>
         <div class="status">
             <u>Score</u>
@@ -44,5 +48,16 @@ $disabled = $game->getGameOver() ? "disabled" : "";
         <a href="<?= $restartUrl ?>" class="diceButtonLink">
             <button type="button" class="diceButton diceButtonRestart">New Game</button>
         </a>
+    </div>
+    <div class="dicegameHistograms">
+        <h2>Histograms</h2>
+        <div class="histogram">
+            <h3><?= $playerName ?></h3>
+            <?= $playerHistogram ?>
+        </div>
+        <div class="histogram">
+            <h3><?= $aiName ?></h3>
+            <?= $aiHistogram ?>
+        </div>
     </div>
 </div>

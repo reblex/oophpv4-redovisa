@@ -21,6 +21,11 @@ class Dice
         $this->faces = $faces;
     }
 
+    public function getFaces()
+    {
+        return $this->faces;
+    }
+
 
     /**
      * Get the outcome of the last roll

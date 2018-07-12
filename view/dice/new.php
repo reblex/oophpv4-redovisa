@@ -11,7 +11,7 @@ $createUrl = $app->url->create("dice/new");
 <form class="dice100form" action="<?= $createUrl ?>" method="post">
     <p>
         Player name
-        <input type="text" name="playerName" placeholder="Kalle">
+        <input type="text" name="playerName" placeholder="Human">
     </p>
     <p>
         Number of Dices/Player

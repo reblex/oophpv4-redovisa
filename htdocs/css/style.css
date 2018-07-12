@@ -84,9 +84,21 @@ body {
 }
 
 .dicegameOptions {
-    width: 100%;
+    width: 49%;
+    float: left;
     min-height: 80px;
     line-height: 80px;
+}
+
+.dicegameHistograms {
+    width: 49%;
+    float: left;
+}
+
+.dicegameHistograms .histogram {
+    float: left;
+    margin-left: 10px;
+    margin-right: 40px;
 }
 
 .diceButtonLink {

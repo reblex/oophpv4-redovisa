@@ -11,6 +11,7 @@ class Game
     private $playerName;
     private $history;
     private $score;
+    private $numDices;
 
 
     public function __construct($numDices, $playerName)
@@ -22,7 +23,7 @@ class Game
 
         // Determine first player at random.
         $this->currentPlayer = rand(0, 1);
-
+        $this->$numDices = $numDices;
         $this->gameOver = false;
         $this->playerName = $playerName;
         $this->status = "Each player rolls a die to find out who goes first...<br>";
@@ -72,10 +73,23 @@ class Game
      * Get Current Players name
      * @return int The current players name
      */
-    public function getCurrentPlayer()
+    public function getPlayerName($idx = null)
     {
-        return $this->players[$this->currentPlayer]->getName();
+        $idx = $idx == null ? $this->currentPlayer : $idx;
+        return $this->players[$idx]->getName();
     }
+
+
+    /**
+     * Get a players histogram
+     * @param  int $playerIndex Index of player in $players
+     * @return string           Stringified Histogram
+     */
+    public function getHistogram($playerIndex)
+    {
+        return $this->players[$playerIndex]->getHistogram();
+    }
+
 
     /**
      * Get currentPlayer index
@@ -123,6 +137,7 @@ class Game
         } else {
             $this->score = " Round: " . $player->getRollSum() . " Total: " . $player->getTotal() . "<br>";
             if ($player->getTotal() >= 100) {
+                $playerName = $this->players[$this->currentPlayer]->getName();
                 $this->gameOver = true;
                 $this->status .= "<br>$playerName wins!<br>";
                 $this->addHistory("$playerName wins!<br>");
@@ -153,13 +168,16 @@ class Game
     public function playAI()
     {
         $player = $this->players[$this->currentPlayer];
+        $opponent = $this->players[0];
+        $rollsMade = 0;
 
         // While it is still the AI's turn.
-        while ($this->currentPlayer != 0) {
-            // The super fancy AI logic.
-            // Roll while current rounds total is less than 10.
-            if ($player->getRollSum() < 10) {
+        while ($this->currentPlayer != 0 && !$this->gameOver) {
+            $chance = $this->calculateAIChance($player, $opponent, $rollsMade);
+            $rand = rand(1, 100);
+            if ($rand <= $chance) {
                 $this->roll();
+                $rollsMade++;
             } else {
                 $this->stop();
             }
@@ -170,8 +188,57 @@ class Game
 
     /*
         --- Private Functions --
-     */
+    */
 
+
+    /**
+     * AI logic for chosing to roll or stop.
+     * The number is compared to a random number
+     * to see if the AI should keep playing.
+     * @return int number between 35-100
+     */
+    private function calculateAIChance($player, $opponent, $rollsMade)
+    {
+        $chance = 100;
+
+        // If the AI has rolled at least once.
+        if ($rollsMade > 0) {
+            // Reduce chance to keep going by 10/roll made
+            $chance -= $rollsMade * 10;
+
+            // Reduce chance to keep going if in the lead with
+            // more than 20 points. Safe bet.
+            if ($player->getTotal() >= $opponent->getTotal() + 20) {
+                $chance -= 20;
+            }
+
+            // Increase chance to keep going if behind with
+            // more than 20 points. YOLO.
+            if ($player->getTotal() <= $opponent->getTotal() - 20) {
+                $chance += 20;
+            }
+
+            // If the AI has gained a lot of score this round,
+            // give it greater chance to stop.
+            if ($player->getRollSum() > 8 + (4 * $this->numDices)) {
+                $chance = 35;
+            }
+
+            // If the AI has a decent chance of getting above 100 points
+            // by rolling once more, increase the chance to keep going again.
+            if ($player->getTotal() >= 90 - (4 * $this->numDices)) {
+                $chance = 90;
+
+                // If the opponent is also very close to winning.
+                if ($opponent->getTotal() >= 90 - (4 * $this->numDices)) {
+                    $chance = 99;
+                }
+
+            }
+        }
+
+        return $chance;
+    }
 
 
     /**

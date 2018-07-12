@@ -7,13 +7,20 @@ class Player
     private $rolls;
     private $score;
     private $name;
+    private $histogram;
 
     public function __construct($numDices, $name)
     {
         $this->diceHand = new DiceHand($numDices, 6);
+        $this->histogram = new Histogram();
         $this->name = $name;
         $this->rolls = [];
         $this->score = 0;
+    }
+
+    public function getHistogram()
+    {
+        return $this->histogram->getAsText();
     }
 
     /**
@@ -24,6 +31,8 @@ class Player
     {
         $roll = $this->diceHand->roll();
         array_push($this->rolls, $roll);
+
+        $this->histogram->injectData($this->diceHand);
         return $roll;
     }
 

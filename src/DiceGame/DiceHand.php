@@ -2,8 +2,10 @@
 
 namespace reblex\DiceGame;
 
-class DiceHand
+class DiceHand implements HistogramInterface
 {
+    use HistogramTrait;
+
     private $dices;
 
     /**
@@ -28,6 +30,13 @@ class DiceHand
         }
     }
 
+    // Overload get Max to always show maximum possible(faces),
+    // not only maximum rolled.
+    public function getHistogramMax()
+    {
+        return $this->dices[0]->getFaces();
+    }
+
     /**
      * Roll all dices
      * @return array outcome of all dices
@@ -37,7 +46,10 @@ class DiceHand
         foreach ($this->dices as $dice) {
             $dice->roll();
         }
-        return $this->getOutCome();
+        $outcome = $this->getOutCome();
+        array_push($this->serie, $outcome);
+
+        return $outcome;
     }
 
 
