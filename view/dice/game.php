@@ -14,7 +14,7 @@ $disabled = $game->getGameOver() ? "disabled" : "";
 <div class="dicegame">
     <div class="dicegameStatus">
         <h2>Current Game Status</h2>
-        <b>Current Player: Player <?= $currentPlayer + 1 ?></b>
+        <b>Current Player: <?= $currentPlayer ?></b>
         <br><br>
         <div class="status">
             <u>Score</u>

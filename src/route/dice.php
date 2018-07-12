@@ -15,13 +15,15 @@ $app->router->any(["GET", "POST"], "dice/new", function () use ($app) {
     $session->start();
 
     // If the form has been posted; remove old, create new and redirect.
-    if (array_key_exists("start", $_POST)) {
+    $start = $app->request->getPost("start") == "Starta!" ? true : false;
+    if ($start) {
         // Remove dicegame from session if it already exists.
         if ($session->has("dicegame")) {
             $session->delete("dicegame");
         }
-        $ai = array_key_exists("AI", $_POST) ? true : false;
-        $dicegame = new Game($_POST["numPlayers"], $_POST["numDices"], $ai);
+
+        $playerName = $app->request->getPost("playerName") == "" ? "Human" : $app->request->getPost("playerName");
+        $dicegame = new Game($app->request->getPost("numDices", 1), $playerName);
         $session->set("dicegame", $dicegame);
 
         $app->response->redirect($app->url->create("dice"));
@@ -51,8 +53,8 @@ $app->router->get("dice", function () use ($app) {
     $dicegame = $session->get("dicegame");
 
     // If it's not the humans turn, play all the AIs.. if it's an AI game.
-    if ($dicegame->hasAI() && $dicegame->getCurrentPlayer() != 0) {
-        $dicegame->playAIs();
+    if ($dicegame->getCurrentPlayerIndex() != 0) {
+        $dicegame->playAI();
     }
 
     $data = [

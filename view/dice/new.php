@@ -10,15 +10,11 @@ $createUrl = $app->url->create("dice/new");
 
 <form class="dice100form" action="<?= $createUrl ?>" method="post">
     <p>
-        Mängd spelare
-        <input type="number" name="numPlayers" value="2">
+        Player name
+        <input type="text" name="playerName" placeholder="Kalle">
     </p>
     <p>
-        Ska alla motståndare vara AI?
-        <input type="checkbox" name="AI" value="AI" checked="checked">
-    </p>
-    <p>
-        Mängd tärningar/spelare
+        Number of Dices/Player
         <input type="number" name="numDices" value="1">
     </p>
 

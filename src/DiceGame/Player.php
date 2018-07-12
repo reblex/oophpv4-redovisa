@@ -6,10 +6,12 @@ class Player
     private $diceHand;
     private $rolls;
     private $score;
+    private $name;
 
-    public function __construct($numDices)
+    public function __construct($numDices, $name)
     {
         $this->diceHand = new DiceHand($numDices, 6);
+        $this->name = $name;
         $this->rolls = [];
         $this->score = 0;
     }
@@ -23,6 +25,15 @@ class Player
         $roll = $this->diceHand->roll();
         array_push($this->rolls, $roll);
         return $roll;
+    }
+
+    /**
+     * Return player name
+     * @return string Name of player
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**

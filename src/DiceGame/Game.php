@@ -8,31 +8,30 @@ class Game
     private $currentPlayer;
     private $status;
     private $gameOver;
-    private $aiGame;
+    private $playerName;
     private $history;
     private $score;
 
 
-    public function __construct(int $numPlayers, int $numDices, bool $aiGame = true)
+    public function __construct($numDices, $playerName)
     {
         // Initiate Players
         $this->players = [];
-        for ($i=0; $i < $numPlayers; $i++) {
-            $player = new Player($numDices);
-            array_push($this->players, $player);
-        }
+        array_push($this->players, new Player($numDices, $playerName));
+        array_push($this->players, new Player($numDices, "AI"));
 
         // Determine first player at random.
-        $this->currentPlayer = rand(0, $numPlayers - 1);
+        $this->currentPlayer = rand(0, 1);
 
         $this->gameOver = false;
-        $current = $this->currentPlayer + 1;
-        $this->aiGame = $aiGame;
+        $this->playerName = $playerName;
         $this->status = "Each player rolls a die to find out who goes first...<br>";
-        $this->status .= "Player $current starts!<br><br>";
+        $player = $this->players[$this->currentPlayer];
+        $playerName = $player->getName();
+        $this->status .= "$playerName starts!<br><br>";
         $this->score = " Round: " . $player->getRollSum() . " Total: " . $player->getTotal() . "<br>";
         $this->history = [];
-        $this->addHistory("Player $current starts.<br>");
+        $this->addHistory("$playerName starts.<br>");
     }
 
 
@@ -70,10 +69,19 @@ class Game
 
 
     /**
-     * Get currentPlayer
-     * @return int The current player
+     * Get Current Players name
+     * @return int The current players name
      */
     public function getCurrentPlayer()
+    {
+        return $this->players[$this->currentPlayer]->getName();
+    }
+
+    /**
+     * Get currentPlayer index
+     * @return int The current player
+     */
+    public function getCurrentPlayerIndex()
     {
         return $this->currentPlayer;
     }
@@ -87,14 +95,6 @@ class Game
         return $this->history;
     }
 
-    /**
-     * Return if the other players are AI.
-     * @return bool If it is an AI game or not
-     */
-    public function hasAI()
-    {
-        return $this->aiGame;
-    }
 
     /**
      * Roll the diceHand of currentPlayer
@@ -107,10 +107,9 @@ class Game
         $player = $this->players[$this->currentPlayer];
         $outcome = $player->roll();
 
-        $current = $this->currentPlayer + 1;
         $this->status = "Your Roll: " . $this->getRollString($outcome) . "<br>";
         $readableOutcome = $this->getRollString($outcome);
-        $this->addHistory("Player $current rolls: $readableOutcome<br>");
+        $this->addHistory("{$player->getName()} rolls: $readableOutcome<br>");
 
         // If one of the dices rolled a 1
         if (in_array(1, $outcome)) {
@@ -118,16 +117,15 @@ class Game
 
             // Go to the next player in turn
             $this->nextPlayer();
-            $current = $this->currentPlayer + 1;
-            $this->status = "You rolled a 1 and lost this rounds points. The turn passes to player $current.<br>";
-            $this->addHistory("Player $current's turn<br>");
+            $playerName = $this->players[$this->currentPlayer]->getName();
+            $this->status = "You rolled a 1 and lost this rounds points. The turn passes to player $playerName.<br>";
+            $this->addHistory("$playerName's turn<br>");
         } else {
             $this->score = " Round: " . $player->getRollSum() . " Total: " . $player->getTotal() . "<br>";
             if ($player->getTotal() >= 100) {
                 $this->gameOver = true;
-                $current = $this->currentPlayer + 1;
-                $this->status .= "<br>Player {$current} wins!<br>";
-                $this->addHistory("Player $current wins!<br>");
+                $this->status .= "<br>$playerName wins!<br>";
+                $this->addHistory("$playerName wins!<br>");
             }
         }
     }
@@ -141,23 +139,23 @@ class Game
     {
         $player = $this->players[$this->currentPlayer];
         $player->sum();
-        $current = $this->currentPlayer + 1;
-        $this->addHistory("Player $current stops. Current score: {$player->getTotal()}<br>");
+        $playerName = $this->players[$this->currentPlayer]->getName();
+        $this->addHistory("$playerName stops. Current score: {$player->getTotal()}<br>");
         $this->nextPlayer();
-        $current = $this->currentPlayer + 1;
-        $this->addHistory("Player $current's turn.<br>");
+        $playerName = $this->players[$this->currentPlayer]->getName();
+        $this->addHistory("$playerName's turn.<br>");
     }
 
 
     /**
      * Play all AIs
      */
-    public function playAIs()
+    public function playAI()
     {
-        // While it is not the humans turn yet.
-        while ($this->currentPlayer != 0) {
-            $player = $this->players[$this->currentPlayer];
+        $player = $this->players[$this->currentPlayer];
 
+        // While it is still the AI's turn.
+        while ($this->currentPlayer != 0) {
             // The super fancy AI logic.
             // Roll while current rounds total is less than 10.
             if ($player->getRollSum() < 10) {
