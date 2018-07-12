@@ -72,7 +72,45 @@ väldigt likt sprites. Jag lärde mig även lite mer om skillnaden med self och 
 Kmom03
 -------------------------
 
-Här är redovisningstexten
+**Har du tidigare erfarenheter av att skriva kod som testar annan kod?**
+
+Ja jag har skrivit ganska mycket enhetstester förut. Både i större och mindre
+projekt.
+
+**Hur ser du på begreppen enhetstestning och att skriva testbar kod?**
+
+Jag tycker att det är viktigt att sikta mot att skriva testbar kod. Inte bara för
+att enhetstestning är viktigt, men för att det hjälpter till att se till att koden
+är "to the point". Blir en funktion för komplicerad att enhetstestad är det oftast
+för att den är för komplicerad redan från början.
+
+**Förklara kort begreppen white/grey/black box testing samt positiva och negativa tester, med dina egna ord.**
+
+Whitebox innebär testning där man har förståelse och tillgång till den kodstruktur man testar.
+Detta gör att man kan skriva tester som inte bara hanterar input/output, men även
+hur väl uppgiften utförs.
+
+Blackbox är testning där man INTE har tillgång till själva kodens struktur. Detta innebär
+att testningen är låst till input/output-testing.
+
+Greybox är ett slags mellansteg där man har begränsad tillgång till kodstrukturen så som
+UML-diagram exempelvis. Det gör att man har större möjlighet att testa ickefunktionella krav
+och annat som inte direkt tillhör enbart input/output.
+
+Det positiva med tester är att man bidrar med en större grad säkerhet till att det
+man har utvecklat faktiskt fungerar, både under utveckling och efter leverans. Det negativa
+är att det tar bort tid från utvveckling.
+
+**Hur gick det att genomföra uppgifterna med enhetstester, använde du egna klasser som bas för din testning?**
+
+Jag använde exempelkoden. Jag såg att man kommer testa sina egna program i senare kursmoment,
+så jag använde denna övning främst för att visa att jag förstår hur enhetstester fungerar.
+
+**Vilken är din TIL för detta kmom?**
+
+Att det tydligen är acceptabelt, i alla fall i phpUnit, att ha flera assertions i
+ett testfall. Jag har tidigare strikt skrivit EN assertion/test case. Föredrar nog
+att göra så för tydlighetens skull, även fast jag inte gjorde det i detta kursmoment.
 
 
 
