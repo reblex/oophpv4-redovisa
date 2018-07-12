@@ -48,5 +48,4 @@ class GameTest extends TestCase
 
         $this->assertEquals($secondPlayer, $exp);
     }
-
 }

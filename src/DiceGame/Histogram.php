@@ -58,9 +58,9 @@ class Histogram
         }
 
         foreach ($this->serie as $rolls) {
-                foreach ($rolls as $roll) {
-                    $histogram[$roll - 1]++;
-                }
+            foreach ($rolls as $roll) {
+                $histogram[$roll - 1]++;
+            }
         }
 
         for ($i=$this->min - 1; $i < $this->max; $i++) {

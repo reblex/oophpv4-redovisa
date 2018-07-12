@@ -233,7 +233,6 @@ class Game
                 if ($opponent->getTotal() >= 90 - (4 * $this->numDices)) {
                     $chance = 99;
                 }
-
             }
         }
 
