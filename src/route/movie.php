@@ -56,3 +56,39 @@ $app->router->get("movie", function () use ($app) {
     $app->view->add("movie/index", $data);
     $app->page->render($data);
 });
+
+/**
+ * Edit movie.
+ */
+$app->router->any(["GET", "POST"], "movie/edit", function () use ($app) {
+    $app->db->connect();
+
+    if ($app->request->getGet("movieId") == null) {
+        $app->response->redirect($app->url->create("movie"));
+    }
+
+    $movieId = $app->request->getPost("movieId") ?: $app->request->getGet("movieId");
+    $movieTitle = $app->request->getPost("movieTitle");
+    $movieYear = $app->request->getPost("movieYear");
+    $movieImage = $app->request->getPost("movieImage");
+
+    if ($app->request->getPost("doSave") !== null) {
+        $sql = "UPDATE movie SET title = ?, year = ?, image = ? WHERE id = ?;";
+        $app->db->execute($sql, [$movieTitle, $movieYear, $movieImage, $movieId]);
+        $app->response->redirect($app->url->create("movie"));
+    }
+
+    $sql = "SELECT * FROM movie WHERE id = ?;";
+    $movie = $app->db->executeFetchAll($sql, [$movieId]);
+    $movie = $movie[0];
+
+
+    $data = [
+        "title"  => "Movie database | oophp",
+        "movie"    => $movie
+    ];
+
+
+    $app->view->add("movie/edit", $data);
+    $app->page->render($data);
+});

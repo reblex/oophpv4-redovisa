@@ -1,4 +1,7 @@
 <?php
+
+namespace Anax\View;
+
 if (!$res) {
     return;
 }
@@ -18,6 +21,8 @@ $defaultRoute = $app->url->create("movie") . "?"
         <th>Bild <?= orderby2("image", $defaultRoute) ?></th>
         <th>Titel <?= orderby2("title", $defaultRoute) ?></th>
         <th>År <?= orderby2("year", $defaultRoute) ?></th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
 <?php $id = -1; foreach ($res as $row) :
     $id++;
@@ -28,6 +33,8 @@ $defaultRoute = $app->url->create("movie") . "?"
         <td><img class="thumb" src="<?= "../htdocs/" . $row->image ?>"></td>
         <td><?= $row->title ?></td>
         <td><?= $row->year ?></td>
+        <td><a href='<?= $app->url->create("movie/edit?movieId={$row->id}") ?>'>Edit</a></td>
+        <td><a href='<?= $app->url->create("movie/delete?movieId={$row->id}") ?>'>Delete</a></td>
     </tr>
 <?php endforeach; ?>
 </table>
