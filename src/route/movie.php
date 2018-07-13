@@ -17,16 +17,24 @@ $app->router->get("movie", function () use ($app) {
         die("Not valid for hits.");
     }
 
+    $doSearch = $app->request->getGet("doSearch", "");
+    $search = esc($app->request->getGet("search", ""));
+
+    $where = "";
+    if ($doSearch == "title") {
+        $where = "WHERE title LIKE '%$search%'";
+    } elseif ($doSearch == "year") {
+        $where = "WHERE year LIKE '$search'";
+    }
+
     // Get max number of pages
-    $sql = "SELECT COUNT(id) AS max FROM movie;";
+    $sql = "SELECT COUNT(id) AS max FROM movie $where;";
     $max = $app->db->executeFetchAll($sql);
     $max = ceil($max[0]->max / $hits);
+    $max = $max == 0 ? 1 : $max;
 
     // Get current page
     $page = $app->request->getGet("page", 1);
-    if (!(is_numeric($hits) && $page > 0 && $page <= $max)) {
-        die("Not valid for page.");
-    }
     $offset = $hits * ($page - 1);
 
     // Only these values are valid
@@ -42,9 +50,8 @@ $app->router->get("movie", function () use ($app) {
         die("Not valid input for sorting.");
     }
 
-    $sql = "SELECT * FROM movie ORDER BY $orderBy $order LIMIT $hits OFFSET $offset;";
+    $sql = "SELECT * FROM movie $where ORDER BY $orderBy $order LIMIT $hits OFFSET $offset;";
     $res = $app->db->executeFetchAll($sql);
-
 
     $data = [
         "title"  => "Movie | View All",

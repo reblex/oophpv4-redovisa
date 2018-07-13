@@ -59,9 +59,21 @@ body {
 /**
  * Movie
 */
+
+.movieWrap {
+    max-width: 600px;
+    margin: auto;
+    margin-top: 40px;
+}
+
 img.thumb {
     max-width: 100px;
     max-height: 100px;
+}
+
+.searchMovie {
+    float: left;
+    margin-right: 20px;
 }
 
 
