@@ -157,7 +157,35 @@ Jag lärde mig mer i detalj om Trait.
 Kmom05
 -------------------------
 
-Här är redovisningstexten
+**Några reflektioner kring koden i övningen för PHP PDO och MySQL?**
+
+Den följer ju en viss struktur som i grunden är okej, men jag tycker att det overall
+är lite rörigt. Hade kanske varit bättre att jobba med någon form av klasstruktur
+för Movie?
+
+**Hur gick det att överföra koden in i ramverket, stötte du på några utmaningar?**
+
+Det gick mycket bra. Hade ju gjort på samma sätt med Guess och DiceGame så nu
+känner jag mig ganska säker på hur man går tillväga. Stötte inte på några problem
+med själva integrationen.
+
+**Berätta om din slutprodukt för filmdatabasen, gjorde du endast basfunktionaliteten
+eller lade du till extra features och hur tänkte du till kring användarvänligheten
+och din kodstruktur?**
+
+Jag lade till paginering och kolumnsortering, men bara eftersom jag redan hade det
+färdigt sedan förra versionen av kursen. Gjorde minimal styling men det känns användarvänligt.
+Det blev lite mycket kod i routerna dock. Jag hade nog föredragit en klasstruktur för
+Movie i *src/*-mappen med inbyggd koppling till databasen. Något liknande hur man gör
+med ARM i Ramverk1. Meeen, nu gjorde jag ju denna kursen efter Ramverk1 så jag kan acceptera
+att man håller sig till lite mer basics i denna kursen.
+
+**Vilken är din TIL för detta kmom?**
+
+Har bra koll på databas, PDO och PHP i allmänhet. Dock kom jag på ett smart sätt
+att lösa sökfunktionaliteten. Jag lade in två submitknappar med title/year som värde
+så jag slapp ha två formulär, eller att man skulle behöva söka i båda kolumnerna.
+Inte superhäftigt, men det var något nytt för mig i alla fall.
 
 
 
