@@ -92,3 +92,20 @@ $app->router->any(["GET", "POST"], "movie/edit", function () use ($app) {
     $app->view->add("movie/edit", $data);
     $app->page->render($data);
 });
+
+/**
+ * Delete movie.
+ */
+$app->router->get("movie/delete", function () use ($app) {
+    $app->db->connect();
+
+    if ($app->request->getGet("movieId") == null) {
+        $app->response->redirect($app->url->create("movie"));
+    }
+
+    $movieId =  $app->request->getGet("movieId");
+    $sql = "DELETE FROM movie WHERE id = ?;";
+    $app->db->execute($sql, [$movieId]);
+
+    $app->response->redirect($app->url->create("movie"));
+});
