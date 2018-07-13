@@ -16,7 +16,6 @@ $defaultRoute = $app->url->create("movie") . "?"
 
 <table>
     <tr class="first">
-        <th>Rad</th>
         <th>Id <?= orderby2("id", $defaultRoute) ?></th>
         <th>Bild <?= orderby2("image", $defaultRoute) ?></th>
         <th>Titel <?= orderby2("title", $defaultRoute) ?></th>
@@ -28,7 +27,6 @@ $defaultRoute = $app->url->create("movie") . "?"
     $id++;
 ?>
     <tr>
-        <td><?= $id ?></td>
         <td><?= $row->id ?></td>
         <td><img class="thumb" src="<?= "../htdocs/" . $row->image ?>"></td>
         <td><?= $row->title ?></td>
@@ -45,3 +43,7 @@ $defaultRoute = $app->url->create("movie") . "?"
         <a href="<?= mergeQueryString(["page" => $i], $defaultRoute) ?>"><?= $i ?></a>
     <?php endfor; ?>
 </p>
+
+<br>
+
+<a href='<?= $app->url->create("movie/new") ?>'>Add a Movie</a>

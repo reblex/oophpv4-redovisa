@@ -47,7 +47,7 @@ $app->router->get("movie", function () use ($app) {
 
 
     $data = [
-        "title"  => "Movie database | oophp",
+        "title"  => "Movie | View All",
         "res"    => $res,
         "max"    => $max
     ];
@@ -84,12 +84,41 @@ $app->router->any(["GET", "POST"], "movie/edit", function () use ($app) {
 
 
     $data = [
-        "title"  => "Movie database | oophp",
+        "title"  => "Movie | Edit",
         "movie"    => $movie
     ];
 
 
     $app->view->add("movie/edit", $data);
+    $app->page->render($data);
+});
+
+/**
+ * New movie.
+ */
+$app->router->any(["GET", "POST"], "movie/new", function () use ($app) {
+    $app->db->connect();
+
+    if ($app->request->getPost("doSave") !== null) {
+        $movieTitle = $app->request->getPost("movieTitle");
+        $movieYear = $app->request->getPost("movieYear");
+        $movieImage = $app->request->getPost("movieImage");
+
+        if ($movieImage == "") {
+            $movieImage = "img/noimage.png";
+        }
+
+        $sql = "INSERT INTO movie (title, year, image) VALUES (?, ?, ?);";
+        $app->db->execute($sql, [$movieTitle, $movieYear, $movieImage]);
+        $app->response->redirect($app->url->create("movie"));
+    }
+
+    $data = [
+        "title"  => "Movie | New"
+    ];
+
+
+    $app->view->add("movie/new", $data);
     $app->page->render($data);
 });
 
