@@ -12,6 +12,9 @@ class ReblexTextFilter
      */
     public function parse($text, $filters)
     {
+        if (is_string($filters)) {
+            $filters = explode(",", $filters);
+        }
         $newText = $text;
         for ($i=0; $i < count($filters); $i++) {
             switch ($filters[$i]) {
