@@ -192,8 +192,41 @@ Inte superhäftigt, men det var något nytt för mig i alla fall.
 Kmom06
 -------------------------
 
-Här är redovisningstexten
+*Eftersom detta kursmomentet är exakt samma som en av uppgifterna i oophp-v3 kmom04 så kommer några
+av följande svar vara kopierade från när jag faktiskt gjorde uppgiften.
+Denna gången har jag i stort sätt bara kopierat in det mesta för att få det att fungera i v4.*
 
+**Hur gick det att jobba med klassen för filtrering och formatting av texten?**
+
+Tycker det är ganska skönt att ha en klass som sköter det separat. Det gör att man slipper hantera sådant
+individuellt i vyn. Jag hade personligen lite problem med namngivningen. Eftersom Anax\Textfilter redan
+finns så blev det knas när jag döpte min egna till Textfilter. Problemet var angående autoloading, men
+jag gjorde en fulfix och bara döpte min klass till ReblexTextFilter iställer.
+
+**Berätta om din klasstruktur och kodstruktur för din lösning av webbsidor med innehåll i databasen.**
+
+Jag valde att skapa en klass som heter ContentHandler. Den tolkar vilken typ av content som ska visas och
+hämtar det från databasen. Sedan skickas den datan för att visas i en view baserad på vad det
+är för typ av content(page/blog/block). Detta gör att allt går igenom en och samma hantering, och det
+slipper bli onödigt mycket kod i vyerna.
+
+**HUr känner du rent allmänt för den koden du skrivit i din me/redovisa, vad är bra och mindre bra?
+Ser du potential till refactoring av din kod och/eller behov av stöd från ramverket?**
+
+Jag gillar att ha en hanterare. Dock skulle det kanske blivit ännu smidigare om hanteraren
+hade tillgång till specifika klasser för post och blog. Jag slapp ha massa kod i routerna,
+men de blev väldigt lika. Det kanske kunde funkat att göra någon bättre hantering för det.
+
+Jag har i stort sätt bara kopierat min content-lösning från kmom04 i oophp-v3 då det
+är samma uppgift, så jag ville inte börja ändra för mycket då jag kanske skulle krångla
+till det. En sak jag i efterhand kan tänka mig vore värd att ändrar dock är att vissa
+routes pratar med controllern, vilket är lite konstigt. Den hanteringen borde finnas
+i routerna, så som ramverket ser ut nuförtiden.
+
+**Vilken är din TIL för detta kmom?**
+
+Jag hade gjort exakt detta kursmomentet innan och arbetat mycket i anax, så jag
+kan faktiskt inte komma på någon speciell lärdom.
 
 
 Kmom07-10
