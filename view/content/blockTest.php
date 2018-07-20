@@ -1,5 +1,6 @@
 <?php
 namespace Anax\View;
+
 ?>
 
 <h1>Här är lite statisk text.</h1>

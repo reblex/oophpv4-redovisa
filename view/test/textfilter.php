@@ -2,7 +2,6 @@
 
 namespace Anax\View;
 
-
 $textOrig = <<<EOD
 Först lite vanlig text följt av en tom rad.
 Då tar vi ett nytt stycke med lite bbcode med [b]bold[/b] och [i]italic[/i] samt en [url=https://dbwebb.se]länk till dbwebb[/url].

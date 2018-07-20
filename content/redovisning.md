@@ -232,4 +232,39 @@ kan faktiskt inte komma på någon speciell lärdom.
 Kmom07-10
 -------------------------
 
-Här är redovisningstexten
+
+**Implementerade krav**
+Jag har implementerat grundkraven 1, 2 och 3.
+
+**Struktur**
+
+Jag började projektet med att arbeta fram en tabellstruktur för databasen. Jag valde att använda tre tabeller: User, Blog och Product. Jag gillar att börja med just detta för när jag satt upp tabellerna vet jag vad mitt system behöver kunna hantera.
+
+Jag valde att använda ARM som finns inbyggt i Anax\Database för att hantera User Blog och Product som objekt. Jag gjorde därför tre klasser som implementerar ARM(liknande hur man gör i Ramverk1). Detta gjorde det lätt att arbeta med databasen då alla klassernas objekt hade samma struktur.
+
+Mycket av sidan är kopierat från redovisningssidan då det grundar mycket i samma tänk. Jag arbetade för att se till att inte ha så lite logik som möjligt i vyerna genom att hantera variabler i routerna med hjälp av klass-objekten kopplade till user/blog/product.
+
+**Funktionalitet**
+
+Bloggen fungerar väldigt likt den blogg som gjordes i kmom06 och har i stort sätt samma funktionalitet. Man kan se en översikt av alla inlägg på förstasidan och man kan läsa inlägget i sin helhet om man klickar på det. Jag valde att använda samma vy för både scenarion genom att ha bloggens "slug" som en GET-variabel och sedan kolla om vyn har fått ett eller flera blogginlägg från routern. Det stod att även bloggen skulle kunna ha bilder, och det tolkade jag som inline bilder i markdown. Därför gäller det att ha markdown-filtrer påslaget om man vill att bilderna ska fungera. Därför har jag gjort så att markdown-filtret är default för blogginlägg(men man kan stänga av det om man vill som admin).
+
+Produkterna fungerar på samma sätt som bloggen för enkelhetens skull. Här är det hårdkodat att beskrivningen använder markdown dock.
+
+För att komma till adminvyn går man till Konto och om man är inloggad som administratör kan man klicka sig till adminvyn. Denna vy är mycket lik hanteringen för filmdatabasen. Man kan se alla blogginlägg samt produkter och därifrån skapa/redigera/ta bort var man vill. Då BlogPost och Product fungerar på ett väldigt likt sätt har jag valt att använda delade vyer för deras hantering. Jag använder på samma sätt som blogg-vyn en GET-variabel för att visa vilken typ av "content" som ska redigeras/skapas och en annan för själva ID't. Vyn renderar de fält som behövs för just den typen, vilket jag tyckte var ganska smidigt.
+
+Jag skrev tester för mitt textfilter och uppnådde 100%. Jag skrev även för min egna Sessionsklass och uppnådde där 84% samt 26% bland mina ensamstående hjälpfunktioner. Detta blev totalt 37% för hela projektet vilket jag tycker är helt okej. Min ambition är att få Godkänt så det får räcka.
+
+
+**Allmänt om projektet**
+
+En av mina favouritlösningar, även om den är liten, är hur jag hanterade en del av inloggningen. Jag ville att man skulle kunna se Hem och Om-sidan utan att vara inloggad för att få en överblick av sidan, men jag ville kräva inloggning för tillgång till Blogg och Produkter. Problemet var att man skickades till Konto-sidan när man loggat in och inte tillbaka till Blogg/Produkter. Jag kunde inte använda HTTP_REFERER-konstanten eftersom inloggningsformuläret hade referer till sig själv. Jag löste detta genom att använda en variabel i sessionen som "referer" och omdirigera efter inloggning baserat på den.
+
+Jag tyckte även att det var ganska smidigt, som jag nämnde tidigare, att ha delade vyer för redigering/skapning av content. Visst, det blev lite extra kod i vyerna, men jag slapp skapade många fler vyer och routes vilket jag blivit lite trött på från att ha gjort både Ramverk1 och OOPHP i rad.
+
+Projektet kändes lagom. Man kunde visa upp att man hade förstått allt man gått igenom i kursen, vilket är hela poängen. Det var inte särskillt svårt, men jag har skrivit en hel del objektorienterad PHP vid detta laget, speciellt i Anax, vilket gav mig en väldigt stabil grund.
+
+
+**Tankar kring kursen**
+Version 4 av kursen kändes som en normal kurs, till skillnad från v3. Jag hade gjort allt till och med kmom04 i v3, och det var i stort sätt hela v4, förutom projektet. Jag gillade den nya versionen av DiceGame, den kändes ganska så lärorik, även fast jag redan kunde det mesta.
+
+Allt som allt tycker jag att detta numera är en bra kurs för att inleda folk till objektorienterad PHP. Kör vidare på denna!
